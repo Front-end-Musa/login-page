@@ -1,19 +1,20 @@
 import { createReducer, on } from '@ngrx/store';
 import * as LoginActions from './login.actions';
+import { User } from './login.models';
 
 export interface UsersState {
-  token: string | null;
+  users: User[];
   error: string | null;
   loading: boolean;
 }
 
 export const initialState: UsersState = {
-  token: null,
+  users: [],
   error: null,
   loading: false,
 };
 
-export const loginReducer = createReducer(
+export const LoginReducer = createReducer(
   initialState,
   on(LoginActions.users, (state) => ({
     ...state,
@@ -30,5 +31,20 @@ export const loginReducer = createReducer(
     error,
     loading: false,
   })),
-  on(LoginActions.logout, () => initialState)
+  on(LoginActions.logout, () => initialState),
+  on(LoginActions.login, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(LoginActions.loginSuccess, (state, { user }) => ({
+    ...state,
+    users: [...state.users, user],
+    loading: false,
+  })),
+  on(LoginActions.loginFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  }))
 );

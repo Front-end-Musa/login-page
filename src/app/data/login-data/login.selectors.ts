@@ -3,9 +3,9 @@ import { UsersState } from './login.reducer';
 
 export const selectUsersState = createFeatureSelector<UsersState>('login');
 
-export const selectToken = createSelector(
+export const selectUsersList = createSelector(
   selectUsersState,
-  (state) => state.token
+  (state) => state.users
 );
 
 export const selectUsersError = createSelector(

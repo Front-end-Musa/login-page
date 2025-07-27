@@ -21,4 +21,16 @@ export class LoginEffects {
             )
         )
     );
+
+    // loginUser$ = createEffect(() => 
+    //     this.actions$.pipe(
+    //         ofType(LoginActions.login),
+    //         switchMap((action) => 
+    //             this.api.getUser<User>(action.id).pipe(
+    //                 map(user => LoginActions.loginSuccess({ user })),
+    //                 catchError(error => [LoginActions.loginFailure({ error: error.message })])
+    //             )
+    //         )
+    //     )
+    // );
 }

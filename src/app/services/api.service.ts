@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { User } from './../data/login-data/login.models';
 import { Injectable } from "@angular/core";
 
 
@@ -11,5 +10,8 @@ export class ApiService {
 
     getUsers<Users>() {
         return this.http.get<Users>(this.url);
+    }
+    getUser<User>(id: number) {
+        return this.http.get<User>(`${this.url}/${id}`);
     }
 }

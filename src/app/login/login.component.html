@@ -4,7 +4,9 @@
         <div class="form-group">
             <label for="username">Username</label>
             <input id="username" formControlName="username" type="text" class="form-control" />
-            <label for="password"></label>
+            <label for="password">Password</label>
+            <input id="password" formControlName="password" type="password" class="form-control">
         </div>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Login</button>
     </form>
 </div>
