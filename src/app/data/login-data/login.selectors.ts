@@ -1,19 +1,19 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { LoginState } from './login.reducer';
+import { UsersState } from './login.reducer';
 
-export const selectLoginState = createFeatureSelector<LoginState>('login');
+export const selectUsersState = createFeatureSelector<UsersState>('login');
 
 export const selectToken = createSelector(
-  selectLoginState,
+  selectUsersState,
   (state) => state.token
 );
 
-export const selectLoginError = createSelector(
-  selectLoginState,
+export const selectUsersError = createSelector(
+  selectUsersState,
   (state) => state.error
 );
 
-export const selectLoginLoading = createSelector(
-  selectLoginState,
+export const selectUsersLoading = createSelector(
+  selectUsersState,
   (state) => state.loading
 );

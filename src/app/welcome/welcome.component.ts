@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginFacade } from '../data/login-data/login.facade';
 
 @Component({
   selector: 'app-welcome',
@@ -8,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class WelcomeComponent {
 
+  constructor( private loginFacade: LoginFacade ) {
+    // Initialization logic can go here
+  }
+
+  ngOnInit() {
+    this.loginFacade.getUsers();
+  }
 }

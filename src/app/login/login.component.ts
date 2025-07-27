@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoginFacade } from '../data/login-data/login.facade';
 
 @Component({
   selector: 'app-login',
@@ -15,18 +16,19 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private loginFacade: LoginFacade) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
+  ngOnInit() {
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
-      // Here you would typically handle the login logic, e.g., call an authentication service
       console.log('Login successful', this.loginForm.value);
-      this.router.navigate(['/home']); // Navigate to home on successful login
     } else {
       console.log('Form is invalid');
     }

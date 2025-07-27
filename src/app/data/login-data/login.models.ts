@@ -1,1 +1,11 @@
-// Решил не заморачваться над созданием интерфейсов для ползователей, так как это просто пример кода для демонстрации работы с NgRx.
+export interface User {
+  id: number;
+  username: string;
+  password: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string
+  image: string;
+  birthDate: string;
+}
