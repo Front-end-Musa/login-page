@@ -15,11 +15,9 @@ import { User } from '../data/login-data/login.models';
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  // Remove provideStore from here; add it to your AppModule instead
   providers: []
 })
 export class LoginComponent {
-  private store = inject(Store)
   loginForm: FormGroup;
   users: User[] = [];
 
@@ -29,27 +27,20 @@ export class LoginComponent {
       password: ['', Validators.required]
     });
   }
-
+  
   ngOnInit() {
     this.loginFacade.getUsers();
-    this.loginFacade.users$.subscribe(users => {
-      console.log(this.users);
-      this.users = users;
-      console.log(this.users)
+    this.loginFacade.users$.subscribe(result => {
+      console.log('Users array:', result);
+      this.users = result; // Assuming users is an array of User objects
     });
   }
 
-  onSubmit() {
-    for (let i = 0; i < this.users.length; i++) {
-      console.log(this.loginForm.get('username')?.value, this.loginForm.get('password')?.value);
-      if (this.loginForm.get('username')?.value == this.users[i].username &&
-          this.loginForm.get('password')?.value == this.users[i].password) {
-        this.router.navigate(['/welcome']);
-        return;
-      } else {
-        console.log('Invalid username or password');
-      }
+  submit() {
+    if (this.users.length > 2) {
+      console.log(this.users[2].username);
+    } else {
+      console.log('Not enough users loaded:', this.users);
     }
   }
 }
-
