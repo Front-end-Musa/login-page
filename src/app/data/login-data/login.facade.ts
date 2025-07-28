@@ -11,7 +11,7 @@ import { User } from "./login.models";
     export class LoginFacade {
   usersError$: Observable<string | null>;
   loading$: Observable<boolean>;
-  users$: Observable<User[]>;
+  users$: Observable<any>;
 
   constructor(private store: Store) {
     this.usersError$ = this.store.select(LoginSelectors.selectUsersError);

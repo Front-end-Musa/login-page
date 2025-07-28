@@ -1,11 +1,10 @@
-import { users } from './../data/login-data/login.actions';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginFacade } from '../data/login-data/login.facade';
-import { Store } from '@ngrx/store';
 import { User } from '../data/login-data/login.models';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +18,11 @@ import { User } from '../data/login-data/login.models';
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  users: User[] = [];
+  users: { users: User[] } = { users: [] };
+  isError: boolean = false;
+  loggedInUser: User | null = null;
 
-  constructor(private fb: FormBuilder, private router: Router, private loginFacade: LoginFacade) {
+  constructor(private fb: FormBuilder, private router: Router, private loginFacade: LoginFacade, private loginService: LoginService) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -32,15 +33,25 @@ export class LoginComponent {
     this.loginFacade.getUsers();
     this.loginFacade.users$.subscribe(result => {
       console.log('Users array:', result);
-      this.users = result; // Assuming users is an array of User objects
+      this.users = result;
     });
   }
 
   submit() {
-    if (this.users.length > 2) {
-      console.log(this.users[2].username);
-    } else {
-      console.log('Not enough users loaded:', this.users);
-    }
+    console.log('Form submitted:', this.loginForm.value);
+    console.log('Users:', this.users);
+    this.users.users.forEach((user) => {
+      if (user.username === this.loginForm.value.username && user.password === this.loginForm.value.password) {
+        console.log('Login successful for user:', user.username);
+        this.router.navigate(['/welcome']);
+        this.loggedInUser = user;
+        this.isError = false;
+        this.loginService.setLoggedInUser(user)
+      } else {
+        console.log('Login failed for user:', user.username);
+        this.isError = true;
+      }
+    });
   }
 }
+
