@@ -19,8 +19,9 @@ import { User } from "./login.models";
     this.users$ = this.store.select(LoginSelectors.selectUsersList);
   }
 
-  getUsers(): void {
+  getUsers(): Observable<User[]> {
     this.store.dispatch(LoginActions.users());
+    return this.store.select(LoginSelectors.selectUsersList);
   }
 
   logout(): void {
