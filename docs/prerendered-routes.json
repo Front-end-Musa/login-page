@@ -1,0 +1,7 @@
+{
+  "routes": {
+    "/login-page": {},
+    "/login-page/login": {},
+    "/login-page/welcome": {}
+  }
+}
