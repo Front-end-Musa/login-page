@@ -1,6 +1,6 @@
 
 export default {
-  basePath: '/login-page',
+  basePath: '/',
   supportedLocales: {
   "en-US": ""
 },

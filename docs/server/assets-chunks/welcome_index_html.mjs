@@ -1,7 +1,7 @@
 export default `<!DOCTYPE html><html lang="en" data-beasties-container><head>
   <meta charset="utf-8">
   <title>LoginPage</title>
-  <base href="/login-page/">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 <style>body,*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;color:#333}

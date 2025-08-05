@@ -2,29 +2,29 @@
 export default {
   bootstrap: () => import('./main.server.mjs').then(m => m.default),
   inlineCriticalCss: true,
-  baseHref: '/login-page/',
+  baseHref: '/',
   locale: undefined,
   routes: [
   {
     "renderMode": 2,
-    "route": "/login-page"
+    "route": "/"
   },
   {
     "renderMode": 2,
-    "route": "/login-page/welcome"
+    "route": "/welcome"
   },
   {
     "renderMode": 2,
-    "route": "/login-page/login"
+    "route": "/login"
   }
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 723, hash: 'b49e76f14e1b70250a8e2f807787338887b04f4778e783c9fb9d0cc1a9bb17b9', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 1017, hash: '444ae48c7347a1fac35157fd933e32d59011f8a34c11a7981c7f5b9edc5c9a09', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'login/index.html': {size: 42886, hash: '553ce086f4665e4f15e4d5e0935ce9d190d252c307d3a87d9265be579f84424b', text: () => import('./assets-chunks/login_index_html.mjs').then(m => m.default)},
-    'welcome/index.html': {size: 42886, hash: '553ce086f4665e4f15e4d5e0935ce9d190d252c307d3a87d9265be579f84424b', text: () => import('./assets-chunks/welcome_index_html.mjs').then(m => m.default)},
-    'index.html': {size: 42886, hash: '553ce086f4665e4f15e4d5e0935ce9d190d252c307d3a87d9265be579f84424b', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 712, hash: '5fd51120094c7daf9cdd8bb1a763ba16d388208b2489a339e40a6e57ba6ff5f0', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 1006, hash: '16054d3cb678de6861ac29bb76361d79ea89f166662180b3c5b7fc2b05e9d4c7', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'welcome/index.html': {size: 42875, hash: 'c0bac04eda49b17762654785887a4e2a1c2a74d5cce6056c86f2a60135d0daa7', text: () => import('./assets-chunks/welcome_index_html.mjs').then(m => m.default)},
+    'index.html': {size: 42875, hash: 'c0bac04eda49b17762654785887a4e2a1c2a74d5cce6056c86f2a60135d0daa7', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
+    'login/index.html': {size: 42875, hash: 'c0bac04eda49b17762654785887a4e2a1c2a74d5cce6056c86f2a60135d0daa7', text: () => import('./assets-chunks/login_index_html.mjs').then(m => m.default)},
     'styles-4KT5UUBR.css': {size: 94, hash: '6K5pTb8rAlA', text: () => import('./assets-chunks/styles-4KT5UUBR_css.mjs').then(m => m.default)}
   },
 };
