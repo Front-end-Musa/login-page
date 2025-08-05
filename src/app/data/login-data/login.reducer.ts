@@ -4,14 +4,18 @@ import { User } from './login.models';
 
 export interface UsersState {
   users: User[];
+  loggedInUser: User | null;
   error: string | null;
   loading: boolean;
+  isAuthChecked: boolean;
 }
 
 export const initialState: UsersState = {
   users: [],
+  loggedInUser: null,
   error: null,
   loading: false,
+  isAuthChecked: false
 };
 
 export const LoginReducer = createReducer(
@@ -31,7 +35,6 @@ export const LoginReducer = createReducer(
     error,
     loading: false,
   })),
-  on(LoginActions.logout, () => initialState),
   on(LoginActions.login, (state) => ({
     ...state,
     loading: true,
@@ -39,12 +42,33 @@ export const LoginReducer = createReducer(
   })),
   on(LoginActions.loginSuccess, (state, { user }) => ({
     ...state,
-    users: [...state.users, user],
+    loggedInUser: user,
     loading: false,
+    isAuthChecked: true,
   })),
   on(LoginActions.loginFailure, (state, { error }) => ({
     ...state,
     error,
     loading: false,
-  }))
+    isAuthChecked: true,
+  })),
+  on(LoginActions.authCheck, (state) => ({
+    ...state,
+    isAuthChecked: true,
+  })),
+  on(LoginActions.getCurrentUser, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(LoginActions.getCurrentUserSuccess, (state, { user }) => ({
+    ...state,
+    loggedInUser: user,
+    isAuthChecked: true,
+  })),
+  on(LoginActions.getCurrentUserFailure, (state, { error }) => ({
+    ...state,
+    error,
+    isAuthChecked: true,
+  })),
 );

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from './login.models';
+import { loginCredentials, User } from './login.models';
 
 export const users = createAction(
   '[Login] Users'
@@ -24,7 +24,7 @@ export const logoutFailure = createAction(
 
 export const login = createAction(
   '[Auth] Login',
-  props<{ id: number }>()
+  props<{ credentials: loginCredentials }>()
 );
 
 export const loginSuccess = createAction(
@@ -34,5 +34,17 @@ export const loginSuccess = createAction(
 
 export const loginFailure = createAction(
   '[Auth] Login Failure',
+  props<{ error: string }>()
+);
+
+export const authCheck = createAction('[Auth] Authorization Check');
+
+export const getCurrentUser = createAction('[Auth] Get Current User');
+export const getCurrentUserSuccess = createAction(
+  '[Auth] Get Current User Success',
+  props<{ user: User }>()
+);
+export const getCurrentUserFailure = createAction(
+  '[Auth] Get Current User Failure',
   props<{ error: string }>()
 );
