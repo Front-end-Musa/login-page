@@ -1,7 +1,0 @@
-<ng-container *ngIf="(this.loginFacade.isAuthChecked); else loading">
-  <router-outlet></router-outlet>
-</ng-container>
-
-<ng-template #loading>
-  <p>Checking authentication...</p>
-</ng-template>
