@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   loggedInUser: loginCredentials | null = null;
 
   ngOnInit() {
+    this.loginFacade.isAuthChecked = false;
     this.loginFacade.getUsers();
     this.loginFacade.loginWithToken().subscribe({
       next: (user) => {
