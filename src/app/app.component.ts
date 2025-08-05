@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   loggedInUser: loginCredentials | null = null;
 
   ngOnInit() {
-    this.loginFacade.isAuthChecked = false;
     this.loginFacade.getUsers();
     this.loginFacade.loginWithToken().subscribe({
       next: (user) => {
@@ -30,6 +29,7 @@ export class AppComponent implements OnInit {
           this.loginFacade.isAuthChecked = true;
           this.router.navigate(['/welcome']);
         } else {
+          this.loginFacade.isAuthChecked = true;
           console.log('No user is currently logged in.');
         }
       }
