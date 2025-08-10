@@ -1,5 +1,5 @@
 <div class="form-wrapper">
-    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!showRegister">
         <h2>Login</h2>
         <div class="form-group">
             <div class="username-input input">
@@ -15,7 +15,31 @@
                     <p>Invalid username or password. Please try again.</p>
                 </div>
             }
-            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="button" class="btn btn-secondary" (click)="switchForms()">Don't have an account</button>
+            </div>
+        </div>
+    </form>
+    <form [formGroup]="registerForm" (ngSubmit)="switchForms()" *ngIf="showRegister">
+        <h2>Login</h2>
+        <div class="form-group">
+            <div class="email-input input">
+                <label for="email">Email</label>
+                <input id="email" formControlName="email" type="email" class="form-control" />
+            </div>
+            <div class="username-input input">
+                <label for="username">Username</label>
+                <input id="username" formControlName="username" type="text" class="form-control" />
+            </div>
+            <div class="password-input input">
+                <label for="password">Password</label>
+                <input id="password" formControlName="password" type="password" class="form-control"/>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="button" class="btn btn-secondary" (click)="switchForms()">Already have an account</button>
+            </div>
         </div>
     </form>
 </div>

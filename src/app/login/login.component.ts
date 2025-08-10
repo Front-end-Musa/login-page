@@ -18,14 +18,21 @@ import { User } from '../data/login-data/login.models';
 })
 export class LoginComponent implements OnInit  {
   loginForm: FormGroup;
+  registerForm: FormGroup;
   users: { users: User[] } = { users: [] };
   isError: boolean = false;
   loggedInUser: User | null = null;
+  showRegister: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private loginFacade: LoginFacade) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
+    });
+    this.registerForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
   
@@ -37,7 +44,7 @@ export class LoginComponent implements OnInit  {
     });
   }
 
-  submit() {
+  login() {
     console.log('Form submitted:', this.loginForm.value);
     console.log('Users:', this.users);
     this.loginFacade.login(this.loginForm.value).subscribe({
@@ -52,6 +59,33 @@ export class LoginComponent implements OnInit  {
       },
       error: (error) => {
         console.error('Login failed:', error);
+        this.isError = true;
+      }
+    });
+  }
+
+  switchForms() {
+    this.showRegister = !this.showRegister;
+    if (this.showRegister) {
+      this.loginForm.reset();
+    } else {
+      this.registerForm.reset();
+    }
+  }
+
+  register() {
+    console.log('Register form submitted:', this.registerForm.value);
+    this.loginFacade.register(this.registerForm.value).subscribe({
+      next: (response) => {
+        if (response) {
+          console.log('Registration successful:', response);
+          this.loggedInUser = response;
+          this.router.navigate(['/welcome']);
+          this.isError = false;
+        }
+      },
+      error: (error) => {
+        console.error('Registration failed:', error);
         this.isError = true;
       }
     });

@@ -48,4 +48,16 @@ export class LoginEffects {
             )
         )
     );
+
+    registerUser$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(LoginActions.register),
+            switchMap((action) => 
+                this.api.register(action.user).pipe(
+                    map(user => LoginActions.registerSuccess({ user })),
+                    catchError(error => [LoginActions.loginFailure({ error: error.message })])
+                )
+            )
+        )
+    );
 }

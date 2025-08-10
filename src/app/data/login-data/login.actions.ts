@@ -48,3 +48,18 @@ export const getCurrentUserFailure = createAction(
   '[Auth] Get Current User Failure',
   props<{ error: string }>()
 );
+
+export const register = createAction(
+  '[Auth] Register',
+  props<{ user: User }>()
+);
+
+export const registerSuccess = createAction(
+  '[Auth] Register Success',
+  props<{ user: User }>()
+);
+
+export const registerFailure = createAction(
+  '[Auth] Register Failure',
+  props<{ error: string }>()
+);

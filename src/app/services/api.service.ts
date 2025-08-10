@@ -7,7 +7,7 @@ import { User } from '../data/login-data/login.models';
 @Injectable({  providedIn: 'root'
 })
 export class ApiService {
-    private url = 'https://dummyjson.com';
+    private url = 'https://users-backend-production-ed1c.up.railway.app';
     constructor(private http: HttpClient) {}
 
     getUsers<Users>() {
@@ -32,6 +32,14 @@ export class ApiService {
                 'Content-Type': 'application/json'
             }
         });
+    }
+
+    register(user: User): Observable<User> {
+        return this.http.post<User>(`${this.url}/auth/register`, {
+            username: user.username,
+            password: user.password,
+            email: user.email
+        })
     }
 
 }

@@ -45,4 +45,9 @@ export class LoginFacade {
   logout(): void {
     this.store.dispatch(LoginActions.logout());
   }
+
+  register(user: User): Observable<User | null> {
+    this.store.dispatch(LoginActions.register({ user }));
+    return this.store.select(LoginSelectors.selectLoggedInUser);
+  }
 }

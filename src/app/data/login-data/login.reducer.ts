@@ -71,4 +71,21 @@ export const LoginReducer = createReducer(
     error,
     isAuthChecked: true,
   })),
+  on(LoginActions.register, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(LoginActions.registerSuccess, (state, { user }) => ({
+    ...state,
+    loggedInUser: user,
+    loading: false,
+    isAuthChecked: true,
+  })),
+  on(LoginActions.loginFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+    isAuthChecked: true,
+  })),
 );
