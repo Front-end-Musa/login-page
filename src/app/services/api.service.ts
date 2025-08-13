@@ -11,13 +11,17 @@ export class ApiService {
     constructor(private http: HttpClient) {}
 
     getUsers<Users>() {
-        return this.http.get<Users>(`${this.url}/users`);
+        return this.http.get<Users>(`${this.url}/users`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+            }
+        });
     }
     getUser<User>(id: number) {
         return this.http.get<User>(`${this.url}/${id}`);
     }
 
-    login(credentials: { username: string; password: string }): Observable<User> {
+    login(credentials: { email: string; password: string }): Observable<User> {
         return this.http.post<any>(`${this.url}/auth/login`, credentials)
     }
 
@@ -26,7 +30,7 @@ export class ApiService {
         if (!token) return throwError(() => new Error('Token missing'));
 
         console.log('Token:', token)
-        return this.http.get('https://dummyjson.com/auth/me', {
+        return this.http.get(`${this.url}/auth/me`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -36,7 +40,7 @@ export class ApiService {
 
     register(user: User): Observable<User> {
         return this.http.post<User>(`${this.url}/auth/register`, {
-            username: user.username,
+            name: user.name,
             password: user.password,
             email: user.email
         })

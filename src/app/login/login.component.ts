@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginFacade } from '../data/login-data/login.facade';
@@ -26,17 +26,23 @@ export class LoginComponent implements OnInit  {
 
   constructor(private fb: FormBuilder, private router: Router, private loginFacade: LoginFacade) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
       password: ['', Validators.required]
     });
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      name: ['', Validators.required],
     });
   }
   
   ngOnInit() {
+    if(this.loggedInUser !== null) {
+      this.getUsers()
+    }
+  }
+
+  getUsers() {
     this.loginFacade.getUsers();
     this.loginFacade.users$.subscribe(result => {
       console.log('Users array:', result);
@@ -44,10 +50,10 @@ export class LoginComponent implements OnInit  {
     });
   }
 
-  login() {
-    console.log('Form submitted:', this.loginForm.value);
+  login(loginForm: FormGroup) {
+    console.log('Form submitted:', loginForm.value);
     console.log('Users:', this.users);
-    this.loginFacade.login(this.loginForm.value).subscribe({
+    this.loginFacade.login(loginForm.value).subscribe({
       next: (response) => {
         if (response) {
           console.log('Login successful:', response);
@@ -55,6 +61,7 @@ export class LoginComponent implements OnInit  {
           console.log('Logged in user:', this.loggedInUser);
           this.router.navigate(['/welcome']);
           this.isError = false;
+          this.getUsers()
         }
       },
       error: (error) => {

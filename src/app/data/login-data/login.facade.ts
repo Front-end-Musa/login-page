@@ -30,8 +30,10 @@ export class LoginFacade {
   login(credentials: loginCredentials): Observable<User | null> {
     this.store.dispatch(LoginActions.login({ credentials }));
     this.loggedInUser$.subscribe(user => {
-      if (user && user.accessToken !== undefined) {
-        localStorage.setItem('authToken', user.accessToken);
+      if (user && user.token !== undefined) {
+        localStorage.setItem('authToken', user.token);
+      } else {
+        console.error('Login failed: No access token received');
       }
     });
     return this.store.select(LoginSelectors.selectLoggedInUser);

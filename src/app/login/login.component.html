@@ -1,10 +1,10 @@
 <div class="form-wrapper">
-    <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!showRegister">
+    <form [formGroup]="loginForm" (ngSubmit)="login(this.loginForm)" *ngIf="!showRegister">
         <h2>Login</h2>
         <div class="form-group">
-            <div class="username-input input">
-                <label for="username">Username</label>
-                <input id="username" formControlName="username" type="text" class="form-control" />
+            <div class="email-input input">
+                <label for="email">Email</label>
+                <input id="email" formControlName="email" type="text" class="form-control" />
             </div>
             <div class="password-input input">
                 <label for="password">Password</label>
@@ -12,7 +12,7 @@
             </div>
             @if (this.isError == true) {
                 <div class="error-message">
-                    <p>Invalid username or password. Please try again.</p>
+                    <p>Invalid email or password. Please try again.</p>
                 </div>
             }
             <div class="buttons">
@@ -21,20 +21,20 @@
             </div>
         </div>
     </form>
-    <form [formGroup]="registerForm" (ngSubmit)="switchForms()" *ngIf="showRegister">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" *ngIf="showRegister">
         <h2>Login</h2>
         <div class="form-group">
             <div class="email-input input">
                 <label for="email">Email</label>
                 <input id="email" formControlName="email" type="email" class="form-control" />
             </div>
-            <div class="username-input input">
-                <label for="username">Username</label>
-                <input id="username" formControlName="username" type="text" class="form-control" />
-            </div>
             <div class="password-input input">
                 <label for="password">Password</label>
                 <input id="password" formControlName="password" type="password" class="form-control"/>
+            </div>
+            <div class="name-input input">
+                <label for="name">Name</label>
+                <input id="name" formControlName="name" type="text" class="form-control" />
             </div>
             <div class="buttons">
                 <button type="submit" class="btn btn-primary">Register</button>
